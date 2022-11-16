@@ -53,9 +53,6 @@ const signin = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password)
         if(!isMatch) return res.status(400).json({message: 'This password is incorrect'})
 
-        //creating a access token
-        const accessToken = createToken.access({ id: user._id })
-
         // Creating refresh token not that expiry of refresh 
         const refreshToken = createToken.refresh({ id: user._id })
 
@@ -64,12 +61,6 @@ const signin = async (req, res) => {
             httpOnly: true, 
             path: '/api/auth/access',
             maxAge: 24 * 60 * 60 * 1000 });
-
-            // return res.json({ 
-            //     email: email,
-            //     password: password,
-            //     token: accessToken 
-            // });
 
         //signin success
         res.status(200).json({message: 'Signin Success'})
@@ -83,11 +74,11 @@ const access = async(req, res) => {
     try{
         //get refresh token
         const refresh_token = req.cookies.jwt
-        if(!refresh_token) return res.status(400).json({ message: 'Please Sign in' })
+        if(!refresh_token) return res.redirect(`http://localhost:3000/admin`);
 
         // validate token
         jwt.verify(refresh_token, process.env.JWT_SECRET_REFRESH, (err, user) => {
-            if(err) return res.status(400).json({ message: 'Please Sign in' })
+            if(err) return res.redirect(`http://localhost:3000/admin`);
             // create access token
             const access_token = createToken.access({id: user.id})
             // access success
@@ -97,6 +88,18 @@ const access = async(req, res) => {
         
     } catch(err){
         return res.status(500).json({message: err.message})
+    }
+}
+
+const signout = async (req, res) => {
+    try{
+        //clear cookie
+        res.clearCookie("jwt", {path: "/api/auth/access"})
+    
+        //success
+        return res.status(200).json({ message: "Signout successful"})
+    } catch(err){
+        res.status(500).json({ message: err.message })
     }
 }
 
@@ -110,14 +113,16 @@ const upload = async (req,res) => {
             file.path,
             {
                 folder: 'images',
+
             }, (err, result) => {
                 if(err) throw err;
                 fs.unlinkSync(file.path)
-                res.status(200).json({message: 'Upload Successful!', url: result.secure_url})
+                res.status(200).json({message: 'Upload Successful!', url: result.secure_url, public_id: result.public_id})
                  
                 //save to db
                 const newImage = new Image({
                     image: result.secure_url,
+                    public_id: result.public_id
                 });
     
                 newImage.save()
@@ -125,6 +130,28 @@ const upload = async (req,res) => {
         )
     } catch(err){
         res.status(500).json({message: err.response.data})
+    }
+}
+
+const deleteImage = async (req, res) => {
+    try{
+        const {public_id} = req.body
+
+        cloudinary.v2.uploader
+        .destroy(public_id)
+        .then(result => {
+            
+        })
+
+        Image.deleteOne({"public_id" :  public_id})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: "Image Successfully Deleted",
+            })
+        })
+    } catch(err){
+        res.status(500).json({ error: { message: err.message }})
     }
 }
 
@@ -144,4 +171,5 @@ const all = (req,res) => {
    }
 };
 
-module.exports = { all, upload, register, signin, access }
+
+module.exports = { all, upload, register, signin, access, signout, deleteImage }

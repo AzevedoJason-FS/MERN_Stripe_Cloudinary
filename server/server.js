@@ -5,7 +5,9 @@ require('dotenv').config();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const portfolioCtrl = require("./controllers/portfolio");
+const contactCtrl = require('./controllers/contactsCtrl')
 const paymentCtrl = require("./controllers/payments");
+const bioCtrl = require('./controllers/bioCtrl')
 const uploadImage = require('./middleware/uploadImage');
 const upload = require('./middleware/upload');
 const auth = require('./middleware/auth')
@@ -23,15 +25,21 @@ app.listen(PORT, () => {
 })
 
 //Admin POST and GET
-app.post('/api/auth/register', portfolioCtrl.register);
+// app.post('/api/auth/register', portfolioCtrl.register);
 app.post('/api/auth/signin', portfolioCtrl.signin);
+app.get('/api/signout', portfolioCtrl.signout)
 app.post('/api/auth/access', portfolioCtrl.access)
-app.post('/api/upload', uploadImage, upload, auth, portfolioCtrl.upload);
+app.post('/api/auth/upload', uploadImage, upload, auth, portfolioCtrl.upload);
+app.post('/api/auth/add-contact', auth, contactCtrl.addContact);
+app.delete('/api/auth/remove-contact', auth, contactCtrl.deleteContact);
+app.get('/api/all-contacts', contactCtrl.allContacts);
+app.delete('/api/auth/remove-image', auth, portfolioCtrl.deleteImage);
+app.post('/api/auth/upload-bio', uploadImage, upload, auth, bioCtrl.uploadBio)
+app.get("/api/all-bio", bioCtrl.allBio);
 app.get("/api/all", portfolioCtrl.all);
 
 //Stripe
 app.get('/api/payment/stripe', paymentCtrl.pay)
-
 
 //Parsing middleware
 app.use(express.urlencoded({
