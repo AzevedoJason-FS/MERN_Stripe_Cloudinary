@@ -3,11 +3,9 @@ const mongoose = require("mongoose");
 
 const allContacts = (req, res) => {
     try{
-        Contact.find().lean()
+        Contact.find().lean().sort({ created_at: -1 })
         .then(result => {
-            res.status(200).json({
-                Contacts: result
-            })
+            res.status(200).json(result)
         })
         .catch(err => {
         res.status(500).json({message: err.response.data})
@@ -33,7 +31,7 @@ const addContact = async (req, res) => {
          await newContact.save()
  
          //Sucess
-         res.status(200).json({message: 'Contact Created Successfuly'})
+         res.status(200).json(newContact)
     }catch(err){
         res.status(500).json({message: err.response.data})
     }

@@ -1,8 +1,8 @@
 const User = require('../model/userModel');
 const Image = require('../model/imageModel');
 const bcrypt = require('bcryptjs');
-const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken')
+const jwt_decode = require('jwt-decode')
 const createToken = require('../helpers/createToken')
 const cloudinary = require('cloudinary')
 const fs = require('fs');
@@ -11,34 +11,34 @@ cloudinary.config({
     api_key: process.env.CLOUD_API_KEY,
     api_secret: process.env.CLOUD_SECRET_KEY
 })
-const now = new Date().getTime()
+const now = new Date()
 
-const register = async(req, res) => {
-    try{
-        // get info
-        const {email, password} = req.body
+// const register = async(req, res) => {
+//     try{
+//         // get info
+//         const {email, password} = req.body
 
-        // hash password
-        const salt = await bcrypt.genSalt()
-        const hashPassword = await bcrypt.hash(password, salt)
+//         // hash password
+//         const salt = await bcrypt.genSalt()
+//         const hashPassword = await bcrypt.hash(password, salt)
 
-        //Store new user in DB
-        const newUser = new User({
-            _id: mongoose.Types.ObjectId(),
-            email: email,
-            password: hashPassword,
-          });
+//         //Store new user in DB
+//         const newUser = new User({
+//             _id: mongoose.Types.ObjectId(),
+//             email: email,
+//             password: hashPassword,
+//           });
 
-        //Adding new document to DB
-        await newUser.save()
+//         //Adding new document to DB
+//         await newUser.save()
 
-        //Sucess
-        res.status(200).json({message: 'User Created Successfuly'})
+//         //Sucess
+//         res.status(200).json({message: 'User Created Successfuly'})
 
-    }catch(err){
-        res.status(500).json({message: err.message})
-    }
-}
+//     }catch(err){
+//         res.status(500).json({message: err.message})
+//     }
+// }
 
 const signin = async (req, res) => {
     try{
@@ -60,7 +60,8 @@ const signin = async (req, res) => {
         res.cookie('jwt', refreshToken, { 
             httpOnly: true, 
             path: '/api/auth/access',
-            maxAge: 24 * 60 * 60 * 1000 });
+            maxAge: 24 * 60 * 60 * 1000 //24hr
+        })
 
         //signin success
         res.status(200).json({message: 'Signin Success'})
@@ -70,22 +71,21 @@ const signin = async (req, res) => {
     }
 }
 
-const access = async(req, res) => {
+const access = (req, res) => {
     try{
         //get refresh token
         const refresh_token = req.cookies.jwt
-        if(!refresh_token) return res.redirect(`http://localhost:3000/admin`);
+
+        if(!refresh_token) return res.status(400).json({message: 'Please Sign in'})
 
         // validate token
         jwt.verify(refresh_token, process.env.JWT_SECRET_REFRESH, (err, user) => {
-            if(err) return res.redirect(`http://localhost:3000/admin`);
+            if(err) return res.status(400).json({ message: 'Please Sign in' })
             // create access token
             const access_token = createToken.access({id: user.id})
             // access success
-            return res.status(200).json({access_token});
-        })
-        
-        
+            return res.status(200).json({ access_token});
+        })        
     } catch(err){
         return res.status(500).json({message: err.message})
     }
@@ -109,23 +109,29 @@ const upload = async (req,res) => {
         const file = req.file;
 
         //upload to cloudinary
-        cloudinary.v2.uploader.upload(
+        await cloudinary.v2.uploader.upload(
             file.path,
             {
                 folder: 'images',
+                format: 'webp',
+                quality: 'auto',
+                crop: "limit",
+                // height: 600, 
+                // width: 400,
 
             }, (err, result) => {
                 if(err) throw err;
                 fs.unlinkSync(file.path)
-                res.status(200).json({message: 'Upload Successful!', url: result.secure_url, public_id: result.public_id})
                  
                 //save to db
                 const newImage = new Image({
                     image: result.secure_url,
-                    public_id: result.public_id
+                    public_id: result.public_id,
+                    created_at: new Date()
                 });
     
                 newImage.save()
+                res.status(200).json(newImage)
             }
         )
     } catch(err){
@@ -137,19 +143,18 @@ const deleteImage = async (req, res) => {
     try{
         const {public_id} = req.body
 
-        cloudinary.v2.uploader
+        await cloudinary.v2.uploader
         .destroy(public_id)
-        .then(result => {
-            
-        })
-
-        Image.deleteOne({"public_id" :  public_id})
-        .exec()
-        .then(result => {
-            res.status(200).json({
-                message: "Image Successfully Deleted",
+        .then(() => {
+            Image.deleteOne({"public_id" :  public_id})
+            .exec()
+            .then(() => {
+                res.status(200).json({
+                    message: "Image Successfully Deleted",
+                })
             })
         })
+
     } catch(err){
         res.status(500).json({ error: { message: err.message }})
     }
@@ -157,7 +162,7 @@ const deleteImage = async (req, res) => {
 
 const all = (req,res) => {
    try{
-    Image.find().lean()
+    Image.find().lean().sort({ created_at: -1 })
     .then(result => {
         res.status(200).json({
             Images: result
@@ -172,4 +177,4 @@ const all = (req,res) => {
 };
 
 
-module.exports = { all, upload, register, signin, access, signout, deleteImage }
+module.exports = { all, upload, signin, access, signout, deleteImage }

@@ -36,7 +36,9 @@ app.get('/api/all-contacts', contactCtrl.allContacts);
 app.delete('/api/auth/remove-image', auth, portfolioCtrl.deleteImage);
 app.post('/api/auth/upload-bio', uploadImage, upload, auth, bioCtrl.uploadBio)
 app.get("/api/all-bio", bioCtrl.allBio);
+app.delete('/api/auth/remove-bio', auth, bioCtrl.deleteBio);
 app.get("/api/all", portfolioCtrl.all);
+
 
 //Stripe
 app.get('/api/payment/stripe', paymentCtrl.pay)

@@ -10,7 +10,10 @@ const aboutSchema = mongoose.Schema({
     bio_detail:{
         type: String
     },
-},{timestamp: true});
+    created_at:{
+        type: String
+    }
+});
 
 const About = mongoose.model("About", aboutSchema);
 

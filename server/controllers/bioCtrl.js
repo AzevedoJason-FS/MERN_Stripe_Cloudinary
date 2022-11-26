@@ -7,9 +7,9 @@ cloudinary.config({
     api_secret: process.env.CLOUD_SECRET_KEY
 })
 
-const allBio = (req, res) => {
+const allBio = async (req, res) => {
     try{
-        Bio.find().lean()
+        await Bio.find().lean().sort({ created_at: -1 })
         .then(result => {
             res.status(200).json({
                 Bio: result
@@ -17,19 +17,20 @@ const allBio = (req, res) => {
         })
         .catch(err => {
         res.status(500).json({message: err.response.data})
-        });
-       } catch(err){
+        })
+    } catch(err){
         res.status(500).json({message: err.response.data})
-       }
+    }
 }
 
 const uploadBio = async (req,res) => {
     try{
         //get file
         const file = req.file;
+        const { bio_detail } = req.body;
 
         //upload to cloudinary
-        cloudinary.v2.uploader.upload(
+        await cloudinary.v2.uploader.upload(
             file.path,
             {
                 folder: 'images',
@@ -40,17 +41,35 @@ const uploadBio = async (req,res) => {
                 res.status(200).json({message: 'Upload Successful!', url: result.secure_url, public_id: result.public_id})
                  
                 //save to db
-                const newImage = new Bio({
+                const newBio = new Bio({
                     bio_image: result.secure_url,
-                    public_id: result.public_id
+                    public_id: result.public_id,
+                    bio_detail: bio_detail
                 });
     
-                newImage.save()
+                newBio.save()
             }
         )
+
     } catch(err){
         res.status(500).json({message: err.response.data})
     }
 }
 
-module.exports = { allBio, uploadBio }
+const deleteBio = async (req, res) => {
+    try{
+        const {_id} = req.body
+
+        await Bio.deleteOne({"_id" :  _id})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: "Bio Successfully Deleted",
+            })
+        })
+    } catch(err){
+        res.status(500).json({ error: { message: err.message }})
+    }
+}
+
+module.exports = { allBio, uploadBio, deleteBio }

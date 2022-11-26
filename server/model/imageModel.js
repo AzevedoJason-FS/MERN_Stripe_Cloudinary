@@ -6,8 +6,11 @@ const imageSchema = mongoose.Schema({
     },
     public_id:{
         type: String
+    },
+    created_at:{
+        type: String
     }
-},{timestamp: true});
+});
 
 const Image = mongoose.model("Images", imageSchema);
 

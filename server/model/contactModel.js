@@ -9,8 +9,11 @@ const contactSchema = mongoose.Schema({
     },
     contact_link:{
         type: String
+    },
+    created_at:{
+        type: String
     }
-},{timestamp: true});
+});
 
 const Contact = mongoose.model("Contacts", contactSchema);
 
