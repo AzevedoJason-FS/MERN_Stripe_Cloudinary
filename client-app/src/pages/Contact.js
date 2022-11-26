@@ -1,16 +1,48 @@
+import axios from 'axios';
+import React from 'react';
 import Nav from "../components/Nav";
+import loadingLogo from'../static/rolling.svg';
 
 const Contact = ( ) => {
-    return (
-        <div style={styles.container}>
-            <Nav />
-            <div style={styles.main}>
-                <div style={styles.content}>
-                    <h2>contact</h2>
-                 </div>
-            </div>
+    const [item, setItems] = React.useState('')
+  
+  React.useEffect(() => {
+    const getData = async () => {
+      try{
+      const res = await axios('/api/all-contacts')
+        setItems(res.data.Contacts)
+      
+      } catch(err){
+        console.log(err)
+      }
+    }
+  getData();
+  }, [])
+
+  return (
+    <div style={styles.container}>
+        <Nav />
+        <div style={styles.main}>
+            <div style={styles.content}>
+                {/* <p style={styles.title}>DATABASE ITEMS</p> */}
+            {item && item.length > 0 ? (
+                    item.map((contact) => {
+                        return (
+                            <div key={contact._id} style={styles.imageBox}>
+                              <p>{contact.contact_name}</p>
+                              <p>{contact.contact_detail}</p>
+                              {/* <BsFillHeartFill style={styles.icon}/> */}
+                            </div>
+                        )
+                    })
+            ) : (
+              <img src={loadingLogo} alt='loader' style={styles.loader}/>
+                )
+            }
+             </div>
         </div>
-      );
+        </div>
+  );
 }
 
 export default Contact;

@@ -34,36 +34,21 @@ const loggedin = () => {
         }
 }    
 
-// const isAuthenticated = () => {
-//     const token = localStorage.getItem('token');
-//     const refreshToken = localStorage.getItem('refreshToken');
-//     try {
-//       decode(token);
-//       const { exp } = decode(refreshToken);
-//       if (exp < (new Date().getTime() + 1) / 1000) {
-//         return false;
-//       }
-//     } catch (err) {
-//       return false;
-//     }
-//     return true;
-// }
-
 const getData = async () => {
     const jwt = localStorage.getItem("jwt")
     if(jwt && isLoggedIn){
         try{
             const res = await axios('/api/all-contacts')
-            setItems(res.data.Contacts)
+            setItems(res.data)
         }catch(err){
             console.log(err)
         }
     }
 }
 
-
   getData();
   loggedin();
+
 }, [isLoggedIn, navigate])
 
 const handleChange = (e) => {
@@ -75,12 +60,17 @@ const handleChange = (e) => {
 
 const addContact = async (e) => {
     e.preventDefault();
-    const jwt = localStorage.getItem("jwt")
-        if(jwt && isLoggedIn){
+    if( !formValue.contact_name ) {
+        return toast.warn("Please include a contact name", {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
+    }
+    if( !formValue.contact_detail ) {
+        return toast.warn("Please include a contact detail/link", {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
+    }
+        if(isLoggedIn){
         try {
             await axios.post('/api/auth/access', null)
             .then(token => {
-                axios.post("/api/auth/add-contact", formValue,{
+                const res = axios.post("/api/auth/add-contact", formValue,{
                     headers: {
                       "Content-Type": "application/json",
                       Authorization: token.data.access_token,
@@ -94,18 +84,11 @@ const addContact = async (e) => {
                           });
                     },
                 })
-                setTimeout(() => {
-                    window.location.reload();
-                }, "4000")
+                setItems([...items, res.data])
             })
         } catch (err) {
-            console.log(err.response.data.message)
-            return toast.error(err.response.data.message, {
-            theme: "colored",
-            className: "toast-failed",
-            bodyClassName: "toast-failed",
-      });
-    }
+            toast.error(err.response.data.message, {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
+        }
     }
 }; 
 
@@ -135,7 +118,7 @@ const handleLogout = async (e) => {
     try{
         await axios.get('/api/signout')
         localStorage.removeItem('jwt')
-        window.location.reload();
+        return navigate("/admin");
     } catch (err) {
         console.log(err.response.data)
     }

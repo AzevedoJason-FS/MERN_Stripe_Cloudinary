@@ -2,7 +2,7 @@ import { BsHouse, BsPerson, BsChatSquare, BsCart2 } from "react-icons/bs";
 import { IoLogoInstagram } from "react-icons/io5";
 import { Link } from 'react-router-dom'
 
-const Nav = (props) => {
+const Nav = () => {
     return(
         <nav style={styles.nav}>
                 <div style={styles.icons}>
@@ -25,7 +25,7 @@ const styles = {
         borderRight: '1px solid #edeced',
         padding: '0 20px 0 6rem',
         display: 'flex',
-        height: '100vh',
+        height: '100%',
         position: 'fixed',
         flexDirection: 'column',
         justifyContent: 'center',

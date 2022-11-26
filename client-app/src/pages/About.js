@@ -1,4 +1,5 @@
 import Nav from "../components/Nav";
+import loadingLogo from'../static/rolling.svg';
 
 const About = ( ) => {
     return (
@@ -6,7 +7,7 @@ const About = ( ) => {
             <Nav />
             <div style={styles.main}>
                 <div style={styles.content}>
-                    <h2>about</h2>
+                <img src={loadingLogo} alt='loader' style={styles.loader}/>
                  </div>
             </div>
             </div>

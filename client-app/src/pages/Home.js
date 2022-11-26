@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import Nav from '../components/Nav';
-import { BsFillHeartFill } from "react-icons/bs";
+import loadingLogo from'../static/rolling.svg';
 
 const Home = () => {
   const [item, setItems] = React.useState('')
@@ -24,7 +24,6 @@ const Home = () => {
         <Nav />
         <div style={styles.main}>
             <div style={styles.content}>
-                {/* <p style={styles.title}>DATABASE ITEMS</p> */}
             {item && item.length > 0 ? (
                     item.map((image) => {
                         return (
@@ -35,7 +34,7 @@ const Home = () => {
                         )
                     })
             ) : (
-                    <h2>loading..</h2>
+                  <img src={loadingLogo} alt='loader' style={styles.loader}/>
                 )
             }
              </div>
@@ -73,12 +72,6 @@ title: {
     fontSize: '1.6rem',
     paddingBottom: '2rem',
     marginBottom: '2rem',
-},
-imageBox:{
-    // width: 'min-content',
-    // paddingBottom: '1rem',
-    // marginBottom: '1rem',
-    // position: 'relative'
 },
 btnReset:{
     backgroundColor: 'transparent',

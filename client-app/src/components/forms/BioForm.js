@@ -1,34 +1,30 @@
 import React from 'react';
 
-const ContactForm = (props) => {
+const BioForm = (props) => {
   
   return (
-    <form onSubmit={props.handleSubmit} style={styles.form}>
-      <h2>Create Contact</h2>
-      <input
-        className='m-2'
-        type="text"
-        value={props.valueName}
-        name="contact_name"
-        placeholder="Contact Name"
-        onChange={props.onChange}
-        style={styles.input}
+    <form style={styles.form} onSubmit={props.handleSubmit}>
+      <h2>Create bio</h2>
+      <input 
+        type="file" 
+        style={styles.imgInput} 
+        name="image"
+        onChange={props.handlePhoto}
       />
       <input
-        className='m-2'
         type="text"
         value={props.valueDetail}
-        name="contact_detail"
-        placeholder="Contact Link (www.link.com)"
+        name="bio_detail"
+        placeholder="Bio Detail"
         onChange={props.onChange}
-        style={styles.input}
+        style={styles.inputText}
       />
-      <button type="submit" style={styles.Button}>Create Contact</button>
+      <button type="submit" style={styles.Button} >Create Bio</button>
     </form>
   )
 };
 
-export default ContactForm;
+export default BioForm;
 
 const styles = {
     Button: {
@@ -49,8 +45,9 @@ const styles = {
       alignItems: 'center',
       borderRadius: '6px'
     },
-    input: {
+    inputText: {
       marginBottom: '1rem',
+      
       padding: '8px'
     }
 }

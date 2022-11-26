@@ -17,7 +17,6 @@ const AdminLogin = () => {
 
     const handleClick = () => {
         setVisible(!visible);
-        console.log(visible)
     }
 
     const handleChange = (e) => {

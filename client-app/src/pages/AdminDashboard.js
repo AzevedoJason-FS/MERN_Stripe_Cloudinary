@@ -1,17 +1,27 @@
 import { React } from "react";
+import axios from 'axios';
 import { Link } from 'react-router-dom'
 import { BsImageFill, BsCartFill, BsFillTelephoneFill } from "react-icons/bs";
 import { FaUserEdit } from "react-icons/fa";
 import AdminNavDash from "../components/AdminNavDash";
 
-const AdminDashboard = () =>{
+const AdminDashboard = () => {
+
+    const handleLogout = async (e) => {
+        e.preventDefault()
+        try{
+            await axios.get('/api/signout')
+            localStorage.removeItem('jwt')
+            window.location.reload();
+        } catch (err) {
+            console.log(err.response.data)
+        }
+    }
     
     return(
         <div style={styles.container}>
         <AdminNavDash
-            // handleLogout={handleLogout}
-            // inputFile={inputFile}
-            // imageUpload={imageUpload}
+            handleLogout={handleLogout}
         />
         <div style={styles.main}>
             <h2 style={styles.title}>Admin Dashboard</h2>

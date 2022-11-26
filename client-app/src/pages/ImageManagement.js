@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { React, useRef, useState, useEffect } from "react";
 import { RiDeleteBinFill } from "react-icons/ri";
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
+import ProgressBar from "@ramonak/react-progress-bar";
 import 'react-toastify/dist/ReactToastify.css';
 import AdminNav from '../components/AdminNav';
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,7 @@ let navigate = useNavigate();
 
 const inputFile = useRef(null)
 const [ items, setItems ] = useState()
+const [percentage, setPercentage] = useState(0)
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 useEffect(() => {
@@ -29,7 +31,7 @@ const getData = async () => {
             const res = await axios('/api/all')
             setItems(res.data.Images)
         }catch(err){
-            console.log(err)
+            toast.error(err.response.data.message, {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
         }
     }
 }
@@ -39,6 +41,7 @@ const getData = async () => {
     
     const imageUpload = async (e) => {
         e.preventDefault();
+        let percent = 0
         try {
             if(isLoggedIn){
                 // get file
@@ -53,29 +56,27 @@ const getData = async () => {
                           'Content-Type': undefined,
                           Authorization: token.data.access_token,
                         },
-                        onUploadProgress: (x) => {
-                          if (x.total < 1024000)
-                            return toast.success("Uploading..", {
-                              className: "bg-upload",
-                              bodyClassName: "bg-upload",
-                              autoClose: 4000,
-                              theme: "colored",
-                            });
-                        },
+                        onUploadProgress: (progressEvent) => {
+                            window.scrollTo(0, 0);
+                            const {loaded, total} = progressEvent;
+                            percent = Math.floor((loaded * 100) / total)
+                            // console.log( `${loaded}kb of ${total}kb | ${percent}%` ) // just to see whats happening in the console
+                            
+                            if(percent <= 100) {
+                            setPercentage(percent) // hook to set the value of current level that needs to be passed to the progressbar
+                            }
+                        }
+                    }).then(res => {
+                        setPercentage(null)
+                        setItems([res.data,...items])
+                        toast.success('Image Uploaded', {className: 'toast-success', bodyClassName: 'toast-success', theme: "colored",})
                     })
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, "4000")
                 })
             }
         } catch (err) {
-          toast.error(err.response.data.msg, {
-            theme: "colored",
-            className: "toast-failed",
-            bodyClassName: "toast-failed",
-          });
+            toast.error(err.response.data.message, {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
         }
-      };   
+    }
 
     const handleDelete = async (public_id) => {
         try{
@@ -88,13 +89,26 @@ const getData = async () => {
                         },
                         data:{
                             "public_id": public_id
-                        }
+                        },
+                        onUploadProgress: () => {
+                              return toast.success("Deleting..", {
+                                className: "bg-upload",
+                                bodyClassName: "bg-upload",
+                                autoClose: 4000,
+                                theme: "colored",
+                              });
+                        },
                     })
+                    // setItems(
+                    //     items.filter((image) => {
+                    //        return image.id !== id;
+                    //     })
+                    //  );
+                    window.location = window.location
                 })
             }
-            window.location.reload();
         } catch (err) {
-            console.log(err.response.data)
+            toast.error(err.response.data.message, {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
         }
     }
 
@@ -103,9 +117,9 @@ const getData = async () => {
         try{
             await axios.get('/api/signout')
             localStorage.removeItem('jwt')
-            window.location.reload();
+            return navigate("/admin");
         } catch (err) {
-            console.log(err.response.data)
+            toast.error(err.response.data.message, {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
         }
     }
     
@@ -120,7 +134,7 @@ const getData = async () => {
         <div style={styles.main}>
         <h2 style={styles.title}>Manage Images</h2>
             <div style={styles.content}>
-                
+            {percentage > 0 && <ProgressBar completed={percentage} margin='2rem' width='80%' labelAlignment='left' bgColor='#07bc0c'/>}
             {items && items.length > 0 ? (
                     items.map((image) => {
                         return (
@@ -165,6 +179,7 @@ const styles = {
     },
     content: {
         margin: 'auto',
+        textAlign: 'center',
         width: '70%',
         border: '1px solid #edeced',
         borderRadius: '8px',
