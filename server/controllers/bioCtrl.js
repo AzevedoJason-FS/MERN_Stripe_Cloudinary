@@ -11,13 +11,11 @@ const allBio = async (req, res) => {
     try{
         await Bio.find().lean().sort({ created_at: -1 })
         .then(result => {
-            res.status(200).json({
-                Bio: result
-            })
+            res.status(200).json(result)
         })
         .catch(err => {
-        res.status(500).json({message: err.response.data})
-        })
+            res.status(500).json({message: err.response.data})
+        });
     } catch(err){
         res.status(500).json({message: err.response.data})
     }
@@ -38,7 +36,6 @@ const uploadBio = async (req,res) => {
             }, (err, result) => {
                 if(err) throw err;
                 fs.unlinkSync(file.path)
-                res.status(200).json({message: 'Upload Successful!', url: result.secure_url, public_id: result.public_id})
                  
                 //save to db
                 const newBio = new Bio({
@@ -47,7 +44,8 @@ const uploadBio = async (req,res) => {
                     bio_detail: bio_detail
                 });
     
-                newBio.save()
+                newBio.save();
+                res.status(200).json(newBio)
             }
         )
 
