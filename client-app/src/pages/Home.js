@@ -29,7 +29,6 @@ const Home = () => {
                         return (
                             <div key={image._id} style={styles.imageBox}>
                               <img src={image.image} alt={image._id} style={styles.img}/>
-                              {/* <BsFillHeartFill style={styles.icon}/> */}
                             </div>
                         )
                     })
@@ -52,19 +51,18 @@ const styles = {
     objectFit: 'cover'
   },
   container: {
-    display: 'flex'
+    display: 'flex',
+    position: 'relative'
 },
 main: {
-    width: '100%',
     textAlign: 'center',
     marginLeft: '14rem',
+    padding: '10px',
+    width: '-webkit-fill-available'
 },
 content: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridTemplateRows: 'repeat(3, 1fr)',
-    gridColumnGap: '10px',
-    gridRowGap: '10px'
+    justifyContent: 'center'
 },
 title: {
     textAlign: 'initial',

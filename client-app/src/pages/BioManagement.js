@@ -5,6 +5,7 @@ import { BsPower, BsHouse, BsPencilFill } from "react-icons/bs";
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import ProgressBar from "@ramonak/react-progress-bar";
 import { useNavigate } from "react-router-dom";
 import BioForm from '../components/forms/BioForm';
 import Modal from '@mui/material/Modal';
@@ -17,7 +18,7 @@ let navigate = useNavigate();
 const [open, setOpen] = useState(false);
 const handleOpen = () => setOpen(true);
 const handleClose = () => setOpen(false);
-
+const [percentage, setPercentage] = useState(0)
 const [ items, setItems ] = useState()
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [formValue, setformValue] = useState({
@@ -40,7 +41,7 @@ useEffect(() => {
         if(isLoggedIn){
             try{
                 const res = await axios('/api/all-bio')
-                setItems(res.data.Bio)
+                setItems(res.data)
             }catch(err){
                 console.log(err)
             }
@@ -51,10 +52,7 @@ useEffect(() => {
 }, [isLoggedIn, navigate])
 
 const handleChange = (e) => {
-    setformValue({
-      ...formValue,
-      [e.target.name]: e.target.value
-    });
+    setformValue({...formValue,[e.target.name]: e.target.value});
 }
 
 const handlePhoto = (e) => {
@@ -63,6 +61,7 @@ const handlePhoto = (e) => {
 
 const bioUpload = async (e) => {
     e.preventDefault();
+    let percent = 0
     if( !formValue.image ) {
         return toast.warn("Please include an Image", {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
     }
@@ -71,7 +70,6 @@ const bioUpload = async (e) => {
     }
     try {
         if(isLoggedIn){
-            // get file and detail
             const { bio_detail, image } = formValue;
 
             let formData = new FormData();
@@ -85,19 +83,21 @@ const bioUpload = async (e) => {
                         'Content-Type': 'multipart/form-data',
                         Authorization: token.data.access_token,
                     },
-                    onUploadProgress: (x) => {
-                        if (x.total < 1024000)
-                            return toast.success("Uploading..", {
-                            className: "bg-upload",
-                            bodyClassName: "bg-upload",
-                            autoClose: 4000,
-                            theme: "colored",
-                        });
-                    },
-                })
-                setTimeout(() => {
-                    window.location.reload();
-                }, "4000")
+                    onUploadProgress: (progressEvent) => {
+                        window.scrollTo(0, 0);
+                        const {loaded, total} = progressEvent;
+                        percent = Math.floor((loaded * 100) / total)
+                        // console.log( `${loaded}kb of ${total}kb | ${percent}%` ) // just to see whats happening in the console
+                        
+                        if(percent <= 100) {
+                        setPercentage(percent) // hook to set the value of current level that needs to be passed to the progressbar
+                        }
+                    }
+              }).then(res => {
+                  setPercentage(null)
+                  setItems([res.data,...items])
+                  toast.success('Bio Created', {className: 'toast-success', bodyClassName: 'toast-success', theme: "colored",})
+              })
             })
         }
     } catch (err) {
@@ -131,7 +131,7 @@ const handleLogout = async (e) => {
     try{
         await axios.get('/api/signout')
         localStorage.removeItem('jwt')
-        return navigate("/admin");
+        return navigate("/");
     } catch (err) {
         console.log(err.response.data)
     }
@@ -168,6 +168,7 @@ const handleLogout = async (e) => {
         <div style={styles.main}>
         <h2 style={styles.title}>Manage Bio</h2>
             <div style={styles.content}>
+            {percentage > 0 && <ProgressBar completed={percentage} margin='2rem' width='80%' labelAlignment='left' bgColor='#07bc0c'/>}
             {items && items.length > 0 ? (
                     items.map((bio) => {
                         return (

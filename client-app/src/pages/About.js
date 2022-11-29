@@ -1,16 +1,45 @@
+import axios from 'axios';
+import React from 'react';
 import Nav from "../components/Nav";
 import loadingLogo from'../static/rolling.svg';
 
 const About = ( ) => {
+    const [item, setItems] = React.useState('')
+
+React.useEffect(() => {
+    const getData = async () => {
+        try{
+            const res = await axios('/api/all-bio')
+            setItems(res.data)
+        } catch(err){
+            console.log(err)
+        }
+    }
+getData();
+}, [])  
+
     return (
         <div style={styles.container}>
-            <Nav />
-            <div style={styles.main}>
-                <div style={styles.content}>
-                <img src={loadingLogo} alt='loader' style={styles.loader}/>
-                 </div>
-            </div>
-            </div>
+        <Nav />
+        <div style={styles.main}>
+            <div style={styles.content}>
+                {/* <p style={styles.title}>DATABASE ITEMS</p> */}
+            {item && item.length > 0 ? (
+                    item.map((bio) => {
+                        return (
+                            <div key={bio._id} style={styles.imageBox}>
+                              <img src={bio.bio_image} alt={bio._id} style={styles.img}/>
+                              <p>{bio.bio_detail}</p>
+                            </div>
+                        )
+                    })
+            ) : (
+              <img src={loadingLogo} alt='loader' style={styles.loader}/>
+                )
+            }
+             </div>
+        </div>
+        </div>
       );
 }
 

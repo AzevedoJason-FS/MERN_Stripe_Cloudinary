@@ -52,10 +52,7 @@ const getData = async () => {
 }, [isLoggedIn, navigate])
 
 const handleChange = (e) => {
-    setformValue({
-      ...formValue,
-      [e.target.name]: e.target.value
-    });
+    setformValue({...formValue, [e.target.name]: e.target.value});
 }
 
 const addContact = async (e) => {
@@ -70,7 +67,7 @@ const addContact = async (e) => {
         try {
             await axios.post('/api/auth/access', null)
             .then(token => {
-                const res = axios.post("/api/auth/add-contact", formValue,{
+                axios.post("/api/auth/add-contact", formValue,{
                     headers: {
                       "Content-Type": "application/json",
                       Authorization: token.data.access_token,
@@ -83,8 +80,10 @@ const addContact = async (e) => {
                             theme: "colored",
                           });
                     },
+                }).then(res => {
+                    setItems([res.data,...items])
+                    toast.success('Contact Created', {className: 'toast-success', bodyClassName: 'toast-success', theme: "colored",})
                 })
-                setItems([...items, res.data])
             })
         } catch (err) {
             toast.error(err.response.data.message, {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
@@ -118,7 +117,7 @@ const handleLogout = async (e) => {
     try{
         await axios.get('/api/signout')
         localStorage.removeItem('jwt')
-        return navigate("/admin");
+        return navigate("/");
     } catch (err) {
         console.log(err.response.data)
     }
@@ -157,14 +156,13 @@ const handleLogout = async (e) => {
             <div style={styles.content}>
             {items && items.length > 0 ? (
                     items.map((contact) => {
-                        console.log(contact)
                         return (
                             <div key={contact._id} style={styles.imageBox}>
                                 <div>
-                                    <h2>{contact.contact_name}</h2>
+                                    <p>{contact.contact_name}</p>
                                 </div>
                                 <div>
-                                    <h2>{contact.contact_detail}</h2>
+                                    <p>{contact.contact_detail}</p>
                                 </div>
                                 <div>
                                     <button onClick={(e) => handleDelete(contact._id, e)} style={styles.btnReset}><RiDeleteBinFill style={styles.iconDelete} /></button>                                
@@ -216,8 +214,9 @@ const styles = {
     },
     imageBox:{
         display: 'flex',
+        wordWrap: 'break-word',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
         alignItems: 'center',
         paddingBottom: '1rem',
         marginBottom: '1rem',

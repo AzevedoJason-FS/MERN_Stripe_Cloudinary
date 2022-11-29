@@ -4,14 +4,14 @@ const BioForm = (props) => {
   
   return (
     <form style={styles.form} onSubmit={props.handleSubmit}>
-      <h2>Create bio</h2>
+      <h2 style={styles.formTitle}>Create bio</h2>
       <input 
         type="file" 
-        style={styles.imgInput} 
+        style={styles.inputImg} 
         name="image"
         onChange={props.handlePhoto}
       />
-      <input
+      <textarea
         type="text"
         value={props.valueDetail}
         name="bio_detail"
@@ -28,8 +28,7 @@ export default BioForm;
 
 const styles = {
     Button: {
-      background: '#FF5454',
-      margin: '1rem 0 0 0',
+      background: '#025de4',
       padding: '10px',
       border: 'none',
       cursor: 'pointer',
@@ -45,9 +44,19 @@ const styles = {
       alignItems: 'center',
       borderRadius: '6px'
     },
+    formTitle:{
+      /* top | right | bottom | left */
+      margin: '0 0 2rem 0'
+    },
     inputText: {
-      marginBottom: '1rem',
-      
-      padding: '8px'
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '16px',
+      /* top | right | bottom | left */
+      margin: '2rem 0 2rem 0',
+      padding: '8px',
+      width: '100%',
+      height: '300px',
+      border: '1px solid #edeced',
+      borderRadius: '6px'
     }
 }

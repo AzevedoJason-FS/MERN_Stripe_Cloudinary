@@ -13,6 +13,7 @@ const ImageManagement = lazy(() => import('./pages/ImageManagement'));
 const StoreManagement = lazy(() => import('./pages/StoreManagement'));
 const ContactManagement = lazy(() => import('./pages/ContactManagement'));
 const BioManagement = lazy(() => import('./pages/BioManagement'));
+const NotFound = lazy(() => import('./components/NotFound'))
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -146,6 +147,7 @@ const App = () => {
               <BioManagement />
             </Suspense>
             } />
+            <Route path="*" element={<NotFound />} />
           </Routes>
     </div>
   );

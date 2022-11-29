@@ -10,8 +10,8 @@ const Contact = ( ) => {
     const getData = async () => {
       try{
       const res = await axios('/api/all-contacts')
-        setItems(res.data.Contacts)
-      
+        setItems(res.data)
+
       } catch(err){
         console.log(err)
       }

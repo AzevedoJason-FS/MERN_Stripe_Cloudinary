@@ -99,12 +99,7 @@ const getData = async () => {
                               });
                         },
                     })
-                    // setItems(
-                    //     items.filter((image) => {
-                    //        return image.id !== id;
-                    //     })
-                    //  );
-                    window.location = window.location
+                    window.location.reload();
                 })
             }
         } catch (err) {
@@ -117,7 +112,7 @@ const getData = async () => {
         try{
             await axios.get('/api/signout')
             localStorage.removeItem('jwt')
-            return navigate("/admin");
+            return navigate("/");
         } catch (err) {
             toast.error(err.response.data.message, {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
         }

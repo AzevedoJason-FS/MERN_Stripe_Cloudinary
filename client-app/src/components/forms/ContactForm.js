@@ -4,7 +4,7 @@ const ContactForm = (props) => {
   
   return (
     <form onSubmit={props.handleSubmit} style={styles.form}>
-      <h2>Create Contact</h2>
+      <h2 style={styles.formTitle}>Create Contact</h2>
       <input
         className='m-2'
         type="text"
@@ -32,7 +32,7 @@ export default ContactForm;
 
 const styles = {
     Button: {
-      background: '#FF5454',
+      background: '#025de4',
       margin: '1rem 0 0 0',
       padding: '10px',
       border: 'none',
@@ -48,6 +48,10 @@ const styles = {
       maxWidth: '400px',
       alignItems: 'center',
       borderRadius: '6px'
+    },
+    formTitle:{
+      /* top | right | bottom | left */
+      margin: '0 0 2rem 0'
     },
     input: {
       marginBottom: '1rem',

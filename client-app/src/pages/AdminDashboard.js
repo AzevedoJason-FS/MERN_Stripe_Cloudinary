@@ -124,7 +124,7 @@ const styles = {
         alignItems: 'center'
     },
     boxTitle:{
-        fontSize: '1.2rem'
+        fontSize: '16px'
     },
     icon:{
         color: '#757575',

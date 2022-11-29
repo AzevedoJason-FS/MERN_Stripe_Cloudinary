@@ -1,13 +1,13 @@
 import { BsPower, BsHouse } from "react-icons/bs";
 import { Link } from 'react-router-dom'
 
-const AdminNavDash = (props) => {
+const AdminNavDash = (prop) => {
     return(
         <nav style={styles.nav}>
                 <div style={styles.icons}>
                     <div style={styles.iconDiv}>
                         <Link to="/admin"><BsHouse style={styles.icon}/></Link> 
-                        <button onClick={props.handleLogout} style={styles.btnReset}><BsPower style={styles.icon}/></button>
+                        <button onClick={prop.handleLogout} style={styles.btnReset}><BsPower style={styles.icon}/></button>
                     </div>
                 </div>
                 <p style={styles.navCopyright}>&copy; 2023 Thistle Photography.<br></br> All Rights Reserved</p>
