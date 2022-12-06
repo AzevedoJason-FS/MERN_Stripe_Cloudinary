@@ -117,7 +117,7 @@ const handleLogout = async (e) => {
     try{
         await axios.get('/api/signout')
         localStorage.removeItem('jwt')
-        return navigate("/");
+        return navigate("/home");
     } catch (err) {
         console.log(err.response.data)
     }
@@ -171,7 +171,7 @@ const handleLogout = async (e) => {
                         )
                     })
             ) : (
-                    <h2>Database Empty</h2>
+                    <h2 style={styles.subTitle}>Database Empty</h2>
                 )
             }
 
@@ -210,7 +210,12 @@ const styles = {
         margin: '0',
         padding: '2rem',
         borderBottom: '1px solid #edeced',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        letterSpacing: '-0.045em',
+    },
+    subTitle: {
+        letterSpacing: '-0.045em',
+        fontSize: '1.4rem',
     },
     imageBox:{
         display: 'flex',

@@ -105,7 +105,7 @@ const bioUpload = async (e) => {
         }
 };   
 
-const handleDelete = async (_id) => {
+const handleDelete = async (_id, public_id) => {
     try{
         if(isLoggedIn){
             await axios.post('/api/auth/access', null)
@@ -115,7 +115,8 @@ const handleDelete = async (_id) => {
                         Authorization: token.data.access_token,
                     },
                     data:{
-                        "_id": _id
+                        "_id": _id,
+                        "public_id": public_id
                     }
                 })
             })
@@ -131,7 +132,7 @@ const handleLogout = async (e) => {
     try{
         await axios.get('/api/signout')
         localStorage.removeItem('jwt')
-        return navigate("/");
+        return navigate("/home");
     } catch (err) {
         console.log(err.response.data)
     }
@@ -173,20 +174,20 @@ const handleLogout = async (e) => {
                     items.map((bio) => {
                         return (
                             <div key={bio._id} style={styles.imageBox}>
-                                <div>
+                                <div style={styles.box}>
                                     <img src={bio.bio_image} alt={bio._id} style={styles.img}/>
                                 </div>
-                                <div>
+                                <div style={styles.box}>
                                     <p>{bio.bio_detail}</p>
                                 </div>
-                                <div>
-                                    <button onClick={(e) => handleDelete(bio._id, e)} style={styles.btnReset}><RiDeleteBinFill style={styles.iconDelete} /></button>
+                                <div style={styles.box}>
+                                    <button onClick={(e) => handleDelete(bio._id, bio.public_id, e)} style={styles.btnReset}><RiDeleteBinFill style={styles.iconDelete} /></button>
                                 </div>
                             </div>
                         )
                     })
             ) : (
-                    <h2>Database Empty</h2>
+                    <h2 style={styles.subTitle}>Database Empty</h2>
                 )
             }
              </div>
@@ -229,7 +230,12 @@ const styles = {
         margin: '0',
         padding: '2rem',
         borderBottom: '1px solid #edeced',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        letterSpacing: '-0.045em',
+    },
+    subTitle: {
+        letterSpacing: '-0.045em',
+        fontSize: '1.4rem',
     },
     imageBox:{
         display: 'flex',
@@ -239,6 +245,9 @@ const styles = {
         paddingBottom: '1rem',
         marginBottom: '1rem',
         borderBottom: '1px solid #edeced',
+    },
+    box:{
+        padding: '10px'
     },
     btnReset:{
         backgroundColor: 'transparent',
@@ -258,7 +267,6 @@ const styles = {
         padding: '4px',
         borderRadius: '3px'
     },
-
     nav: {
         width: '6rem',
         borderRight: '1px solid #edeced',
@@ -302,5 +310,5 @@ const styles = {
         color: '#757575',
         fontSize: '10px',
         textAlign: 'end'
-    }
+    },
 }

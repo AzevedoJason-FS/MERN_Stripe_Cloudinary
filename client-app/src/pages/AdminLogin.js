@@ -55,6 +55,7 @@ const styles = {
         height: '100vh',
         alignItems: 'center',
         marginLeft: '14rem',
+        marginRight: '0.8rem',
         display: 'flex',
         justifyContent: 'center'
     }

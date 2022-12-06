@@ -2,6 +2,7 @@ import { Routes, Route} from "react-router-dom";
 import { useEffect, useState, React, Suspense, lazy } from "react";
 import { ReactComponent as RollingLoader } from "./static/rolling.svg";
 
+const LandingPage = lazy(() => import('./pages/LandingPage'));
 const Home = lazy(() => import('./pages/Home'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
@@ -37,7 +38,18 @@ const App = () => {
   return (
     <div className="app">
           <Routes>
-            <Route path='/' element={
+          <Route path='/' element={
+              <Suspense fallback={
+                <div className="loader-container">
+                  <div className="loader-container-inner">
+                    <RollingLoader />
+                  </div>
+                </div>
+              }>
+              <LandingPage />
+            </Suspense>
+            } />
+            <Route path='/home' element={
               <Suspense fallback={
                 <div className="loader-container">
                   <div className="loader-container-inner">

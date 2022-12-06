@@ -51,7 +51,7 @@ const styles = {
         paddingBottom: '2rem'
     },
     iconUpld:{
-        color: '#025de4',
+        color: '#0066ff',
         cursor: 'pointer',
         fontSize: '1.4rem',
         paddingTop: '1.8rem'
@@ -73,7 +73,7 @@ const styles = {
         position: 'absolute',
         bottom: '1rem',
         color: '#757575',
-        fontSize: '10px',
+        fontSize: '8px',
         textAlign: 'end'
     }
 }

@@ -1,18 +1,19 @@
 import { React } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { BsImageFill, BsCartFill, BsFillTelephoneFill } from "react-icons/bs";
 import { FaUserEdit } from "react-icons/fa";
 import AdminNavDash from "../components/AdminNavDash";
 
 const AdminDashboard = () => {
-
+    let navigate = useNavigate();
     const handleLogout = async (e) => {
         e.preventDefault()
         try{
             await axios.get('/api/signout')
             localStorage.removeItem('jwt')
-            window.location.reload();
+            return navigate("/home");
         } catch (err) {
             console.log(err.response.data)
         }
@@ -93,7 +94,8 @@ const styles = {
         margin: '0',
         padding: '2rem',
         borderBottom: '1px solid #edeced',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        letterSpacing: '-0.045em',
     },
     box:{
         padding: '4rem',
@@ -124,7 +126,8 @@ const styles = {
         alignItems: 'center'
     },
     boxTitle:{
-        fontSize: '16px'
+        fontSize: '16px',
+        fontWeight: '500'
     },
     icon:{
         color: '#757575',

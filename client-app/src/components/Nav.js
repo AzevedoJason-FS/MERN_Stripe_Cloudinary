@@ -1,12 +1,15 @@
 import { BsHouse, BsPerson, BsChatSquare, BsCart2 } from "react-icons/bs";
 import { IoLogoInstagram } from "react-icons/io5";
 import { Link } from 'react-router-dom'
+import logo from '../static/logo.svg'
 
 const Nav = () => {
     return(
-        <nav style={styles.nav}>
+        <nav style={styles.nav} className='nav'>
+            {/* <img src={logo} style={styles.navLogo} alt='Thistle Photography Logo'/> */}
+            <h2 style={styles.navTitle}>Thistle Photography</h2>
                 <div style={styles.icons}>
-                    <Link to="/"><BsHouse style={styles.icon}/></Link> 
+                    <Link to="/home"><BsHouse style={styles.icon}/></Link> 
                     <Link to="/about"><BsPerson style={styles.icon}/></Link> 
                     <Link to="/contact"><BsChatSquare style={styles.icon}/></Link>
                     <Link to="/store"><BsCart2 style={styles.icon}/></Link>
@@ -22,9 +25,10 @@ export default Nav
 const styles = {
     nav: {
         width: '6rem',
-        borderRight: '1px solid #edeced',
+        // borderRight: '1px solid rgba(230, 230, 230, 1)',
         padding: '0 20px 0 6rem',
         display: 'flex',
+        float: 'left',
         height: '100%',
         position: 'fixed',
         flexDirection: 'column',
@@ -33,21 +37,37 @@ const styles = {
         zIndex: '100',
         background: 'white'
     },
+    navLogo: {
+        position: 'absolute',
+        top: '20px',
+        color: 'rgba(41, 41, 41, 1)',
+        letterSpacing: '-0.045em',
+        textAlign: 'right',
+        width: '100px'
+    },
+    navTitle: {
+        position: 'absolute',
+        top: '0px',
+        color: '#333',
+        letterSpacing: '-0.045em',
+        textAlign: 'right',
+        fontSize: '24px'
+    },
     icons:{
         display: 'flex',
         flexDirection: 'column'
     },
     icon:{
-        color: '#757575',
+        color: 'rgba(117, 117, 117, 1)',
         cursor: 'pointer',
-        fontSize: '1.3rem',
+        fontSize: '1.2rem',
         paddingBottom: '2rem'
     },
     navCopyright:{
         position: 'absolute',
         bottom: '1rem',
-        color: '#757575',
-        fontSize: '10px',
+        color: 'rgba(117, 117, 117, 1)',
+        fontSize: '8px',
         textAlign: 'end'
     }
 }

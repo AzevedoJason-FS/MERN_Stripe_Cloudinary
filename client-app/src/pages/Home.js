@@ -2,6 +2,8 @@ import axios from 'axios';
 import React from 'react';
 import Nav from '../components/Nav';
 import loadingLogo from'../static/rolling.svg';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import MobileNav from '../components/MobileNav';
 
 const Home = () => {
   const [item, setItems] = React.useState('')
@@ -22,13 +24,18 @@ const Home = () => {
   return (
     <div style={styles.container}>
         <Nav />
-        <div style={styles.main}>
-            <div style={styles.content}>
+        <MobileNav />
+        <div style={styles.main} className='main'>
+              <div style={styles.cards} className='cards'>
             {item && item.length > 0 ? (
                     item.map((image) => {
                         return (
                             <div key={image._id} style={styles.imageBox}>
-                              <img src={image.image} alt={image._id} style={styles.img}/>
+                              <LazyLoadImage src={image.image}
+                                width={'100%'} 
+                                alt="Portfolio Image by Matt Thistle"
+                                style={styles.bioImage}
+                              />
                             </div>
                         )
                     })
@@ -45,24 +52,13 @@ const Home = () => {
 export default Home;
 
 const styles = {
-  img:{
-    width: '400px',
-    height: '600px',
-    objectFit: 'cover'
-  },
-  container: {
-    display: 'flex',
-    position: 'relative'
+container: {
+
 },
 main: {
-    textAlign: 'center',
-    marginLeft: '14rem',
-    padding: '10px',
-    width: '-webkit-fill-available'
-},
-content: {
-    display: 'grid',
-    justifyContent: 'center'
+    marginLeft: '13.25rem',
+    padding: '20px',
+    width: 'inherit'
 },
 title: {
     textAlign: 'initial',
@@ -91,7 +87,16 @@ icon:{
     backgroundColor: 'white',
     borderBottomLeftRadius: '14px',
     padding: '10px',
-
+},
+cards: {
+    maxWidth: '1200px',
+    width: 'fit-content',
+    margin: '0 auto',
+    display: 'grid',
+    gap: '5px',
+},
+bioImage:{
+  borderRadius: 'max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px'
 }
 }
 

@@ -59,7 +59,7 @@ const styles = {
         position: 'absolute',
         bottom: '1rem',
         color: '#757575',
-        fontSize: '10px',
+        fontSize: '8px',
         textAlign: 'end'
     }
 }

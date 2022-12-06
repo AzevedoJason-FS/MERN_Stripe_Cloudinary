@@ -37,18 +37,18 @@ const styles = {
         height: '450px',
         background: 'white',
         border: '1px solid #edeced',
-        borderRadius: '6px'
+        borderRadius: '12px'
     },
     formTitle:{
         fontSize: '30px',
         textTransform: 'uppercase',
-        marginTop: 0
+        marginTop: 0,
+        letterSpacing: '-0.045em',
     },
     inputField:{
         padding:'10px',
         fontSize: '16px',
         width: '200px',
-        fontWeight: '400'
     },
     visible:{
         display: 'flex',
@@ -63,7 +63,6 @@ const styles = {
         padding:'10px',
         fontSize: '16px',
         width: '200px',
-        fontWeight: '400'
     },
     login_btn:{
         display: 'flex',
@@ -71,17 +70,22 @@ const styles = {
         justifyContent: 'center',
     },
     btn:{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#025de4',
-        border: 0,
-        padding: '12px',
-        fontSize: '18px',
-        color: 'white',
-
-        textTransform: 'uppercase',
+        display: 'block',
+        position: 'relative',
         cursor: 'pointer',
+        background: '#0066ff',
+        color: 'white',
+        width: '200px',
+        fontSize:'16px',
+        borderRadius: '10px',
+        padding: '0 21px',
+        height: '46px',
+        fontWeight: '600',
+        fontFamily: 'Inter,sans-serif',
+        textAlign: 'center',
+        whiteSpace: 'nowrap',
+        border: 'none',
+        textDecoration: 'none',
     },
 
 }

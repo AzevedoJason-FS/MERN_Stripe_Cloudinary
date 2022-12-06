@@ -112,7 +112,7 @@ const getData = async () => {
         try{
             await axios.get('/api/signout')
             localStorage.removeItem('jwt')
-            return navigate("/");
+            return navigate("/home");
         } catch (err) {
             toast.error(err.response.data.message, {className: 'toast-failed', bodyClassName: 'toast-failed', theme: "colored",})
         }
@@ -144,7 +144,7 @@ const getData = async () => {
                         )
                     })
             ) : (
-                    <h2>Database Empty</h2>
+                    <h2 style={styles.subTitle}>Database Empty</h2>
                 )
             }
              </div>
@@ -188,7 +188,12 @@ const styles = {
         margin: '0',
         padding: '2rem',
         borderBottom: '1px solid #edeced',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        letterSpacing: '-0.045em',
+    },
+    subTitle: {
+        letterSpacing: '-0.045em',
+        fontSize: '1.4rem',
     },
     imageBox:{
         display: 'flex',
