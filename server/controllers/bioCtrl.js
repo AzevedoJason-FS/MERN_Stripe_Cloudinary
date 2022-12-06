@@ -32,7 +32,11 @@ const uploadBio = async (req,res) => {
             file.path,
             {
                 folder: 'images',
-
+                format: 'webp',
+                quality: '90',
+                crop: 'limit',
+                height: 800, 
+                width: 600,
             }, (err, result) => {
                 if(err) throw err;
                 fs.unlinkSync(file.path)
@@ -55,14 +59,17 @@ const uploadBio = async (req,res) => {
 }
 
 const deleteBio = async (req, res) => {
+    const {_id, public_id} = req.body
     try{
-        const {_id} = req.body
-
-        await Bio.deleteOne({"_id" :  _id})
-        .exec()
-        .then(result => {
-            res.status(200).json({
-                message: "Bio Successfully Deleted",
+        await cloudinary.v2.uploader
+        .destroy(public_id)
+        .then(() => {
+            Bio.deleteOne({"_id" :  _id})
+            .exec()
+            .then(result => {
+                res.status(200).json({
+                    message: "Bio Successfully Deleted",
+                })
             })
         })
     } catch(err){

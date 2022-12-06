@@ -114,11 +114,10 @@ const upload = async (req,res) => {
             {
                 folder: 'images',
                 format: 'webp',
-                quality: 'auto',
-                crop: "limit",
-                // height: 600, 
-                // width: 400,
-
+                quality: '90',
+                crop: 'limit',
+                height: 800, 
+                width: 600,
             }, (err, result) => {
                 if(err) throw err;
                 fs.unlinkSync(file.path)
