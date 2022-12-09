@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path')
 const cookieparser = require('cookie-parser');
 require('dotenv').config();
 const cors = require('cors');
@@ -22,6 +23,11 @@ const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT}`)
+})
+
+app.use(express.static(path.join(__dirname, '../client-app/build')))
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client-app/build', 'index.html'))
 })
 
 //Admin POST and GET
