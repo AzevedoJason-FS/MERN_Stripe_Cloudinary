@@ -135,10 +135,7 @@ body,
 }
 @media (min-width: 1000px) {
   .cards { grid-template-columns: repeat(3, 1fr); }
-  .contact-cards { grid-template-columns: repeat(4, 1fr); }
 }
 
-@media (max-width: 1070px) {
-  .cards { grid-template-columns: repeat(3, 1fr); }
-  .contact-cards { grid-template-columns: repeat(3, 1fr); }
-}
+
+
