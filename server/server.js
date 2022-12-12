@@ -50,6 +50,11 @@ app.get("/", (req, res) => {
     res.setHeader("Access-Control-Allow-Headers", "content-type");
     res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
      });
+
+app.get('/favicon.ico', (req,res) => { 
+    res.status(204);
+    res.end();    
+});
     
 //Middleware modules for Error Handling
 app.use((req, res, next) => {
