@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "install-api": "cd server; npm install",
-    "start": "npm start --prefix server",
+    "start": "cd server; npm start",
     "api": "cd server; nodemon server.js"
   },
   "repository": {
