@@ -1,0 +1,19 @@
+{
+  "name": "thistle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start":  "cd ./server && node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AzevedoJason-FS/MERN_Stripe_Cloudinary.git"
+  },
+  "author": "Jason",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AzevedoJason-FS/MERN_Stripe_Cloudinary/issues"
+  },
+  "homepage": "https://github.com/AzevedoJason-FS/MERN_Stripe_Cloudinary#readme"
+}
