@@ -2,11 +2,10 @@
   "name": "thistle",
   "version": "1.0.0",
   "description": "MERN RESTAPI",
-  "main": "server.js",
+  "main": "./server/server.js",
   "scripts": {
-    "install-api": "cd server; npm install",
-    "start": "cd server; npm run start",
-    "api": "cd server; nodemon server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd ./server && node server.js"
   },
   "repository": {
     "type": "git",
