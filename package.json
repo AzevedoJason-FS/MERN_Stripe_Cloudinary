@@ -1,0 +1,24 @@
+{
+  "name": "thistle",
+  "version": "1.0.0",
+  "description": "MERN RESTAPI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AzevedoJason-FS/MERN_Stripe_Cloudinary.git"
+  },
+  "keywords": [
+    "MERN",
+    "RESTAPI",
+    "CLOUDINARY"
+  ],
+  "author": "Jason Azevedo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AzevedoJason-FS/MERN_Stripe_Cloudinary/issues"
+  },
+  "homepage": "https://github.com/AzevedoJason-FS/MERN_Stripe_Cloudinary#readme"
+}
