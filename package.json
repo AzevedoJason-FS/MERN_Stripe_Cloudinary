@@ -2,9 +2,9 @@
   "name": "thistle",
   "version": "1.0.0",
   "description": "MERN RESTAPI",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "install-api": "npm install --prefix server",
+    "install-api": "cd server; npm install",
     "start": "npm start --prefix server",
     "api": "cd server; nodemon server.js"
   },
