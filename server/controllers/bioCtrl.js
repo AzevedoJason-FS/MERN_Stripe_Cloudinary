@@ -54,6 +54,7 @@ const uploadBio = async (req,res) => {
         )
 
     } catch(err){
+        fs.unlinkSync(file.path)
         res.status(500).json({message: err.response.data})
     }
 }

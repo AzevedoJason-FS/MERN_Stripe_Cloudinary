@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const allContacts = (req, res) => {
     try{
-        Contact.find().lean().sort({ created_at: -1 })
+        Contact.find().lean().sort({ created_at: 1 })
         .then(result => {
             res.status(200).json(result)
         })

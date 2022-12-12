@@ -2,7 +2,6 @@ const User = require('../model/userModel');
 const Image = require('../model/imageModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
-const jwt_decode = require('jwt-decode')
 const createToken = require('../helpers/createToken')
 const cloudinary = require('cloudinary')
 const fs = require('fs');
@@ -134,6 +133,7 @@ const upload = async (req,res) => {
             }
         )
     } catch(err){
+        fs.unlinkSync(file.path)
         res.status(500).json({message: err.response.data})
     }
 }
@@ -161,7 +161,7 @@ const deleteImage = async (req, res) => {
 
 const all = (req,res) => {
    try{
-    Image.find().lean().sort({ created_at: -1 })
+    Image.find().lean().sort({ created_at: 1 })
     .then(result => {
         res.status(200).json({
             Images: result

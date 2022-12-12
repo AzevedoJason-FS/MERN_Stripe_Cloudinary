@@ -1,13 +1,11 @@
 const express = require('express');
 const app = express();
-const path = require('path')
 const cookieparser = require('cookie-parser');
 require('dotenv').config();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const portfolioCtrl = require("./controllers/portfolio");
 const contactCtrl = require('./controllers/contactsCtrl')
-const paymentCtrl = require("./controllers/payments");
 const bioCtrl = require('./controllers/bioCtrl')
 const uploadImage = require('./middleware/uploadImage');
 const upload = require('./middleware/upload');
@@ -21,33 +19,20 @@ app.use(cookieparser());
 
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
-    console.log(`Server running on ${PORT}`)
-})
-
-app.use(express.static(path.join(__dirname, '../client-app/build')))
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client-app/build', 'index.html'))
-})
-
 //Admin POST and GET
 // app.post('/api/auth/register', portfolioCtrl.register);
 app.post('/api/auth/signin', portfolioCtrl.signin);
 app.get('/api/signout', portfolioCtrl.signout)
 app.post('/api/auth/access', portfolioCtrl.access)
-app.post('/api/auth/upload', uploadImage, upload, auth, portfolioCtrl.upload);
+app.post('/api/auth/upload', auth, upload, uploadImage, portfolioCtrl.upload);
 app.post('/api/auth/add-contact', auth, contactCtrl.addContact);
 app.delete('/api/auth/remove-contact', auth, contactCtrl.deleteContact);
 app.get('/api/all-contacts', contactCtrl.allContacts);
 app.delete('/api/auth/remove-image', auth, portfolioCtrl.deleteImage);
-app.post('/api/auth/upload-bio', uploadImage, upload, auth, bioCtrl.uploadBio)
+app.post('/api/auth/upload-bio', auth, upload, uploadImage, bioCtrl.uploadBio)
 app.get("/api/all-bio", bioCtrl.allBio);
 app.delete('/api/auth/remove-bio', auth, bioCtrl.deleteBio);
 app.get("/api/all", portfolioCtrl.all);
-
-
-//Stripe
-app.get('/api/payment/stripe', paymentCtrl.pay)
 
 //Parsing middleware
 app.use(express.urlencoded({
@@ -85,14 +70,24 @@ app.use((error, req, res, next) => {
 });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,    
-},(err) => {
-    if(err){
-        console.error("Error: ", err.message);
+const connectMongo = async () => {
+    try{
+        const conn = mongoose.connect(process.env.MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,    
+        })
+        console.log(`MongoDB connected`)
     }
-    else{
-        console.log("MongoDB Connection Successful")
+    catch (error){
+        console.log(error);
+        process.exit(1);
     }
-});
+}
+
+//Connect to MongoDB before listening
+connectMongo().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server running on ${PORT}, Ready for Requests`)
+    })
+})
+
