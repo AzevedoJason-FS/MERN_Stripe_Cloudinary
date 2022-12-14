@@ -24,12 +24,12 @@ const PORT = process.env.PORT || 3001;
 app.post('/api/auth/signin', portfolioCtrl.signin);
 app.get('/api/signout', portfolioCtrl.signout)
 app.post('/api/auth/access', portfolioCtrl.access)
-app.post('/api/auth/upload', auth, upload, uploadImage, portfolioCtrl.upload);
+app.post('/api/auth/upload',auth, uploadImage, upload, portfolioCtrl.upload);
 app.post('/api/auth/add-contact', auth, contactCtrl.addContact);
 app.delete('/api/auth/remove-contact', auth, contactCtrl.deleteContact);
 app.get('/api/all-contacts', contactCtrl.allContacts);
 app.delete('/api/auth/remove-image', auth, portfolioCtrl.deleteImage);
-app.post('/api/auth/upload-bio', auth, upload, uploadImage, bioCtrl.uploadBio)
+app.post('/api/auth/upload-bio', auth, uploadImage, upload, auth, bioCtrl.uploadBio)
 app.get("/api/all-bio", bioCtrl.allBio);
 app.delete('/api/auth/remove-bio', auth, bioCtrl.deleteBio);
 app.get("/api/all", portfolioCtrl.all);
@@ -44,7 +44,7 @@ app.use('./uploads/', express.static('uploads'));
 app.use(cors());
 
 app.get("/", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
+    res.setHeader("Access-Control-Allow-Origin", "*")
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Max-Age", "1800");
     res.setHeader("Access-Control-Allow-Headers", "content-type");
