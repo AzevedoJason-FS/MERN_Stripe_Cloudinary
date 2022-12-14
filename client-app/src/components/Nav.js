@@ -1,4 +1,4 @@
-import { BsHouse, BsPerson, BsChatSquare, BsCart2 } from "react-icons/bs";
+import { BsHouse, BsPerson, BsChatSquare, BsCamera } from "react-icons/bs";
 import { IoLogoInstagram } from "react-icons/io5";
 import { Link } from 'react-router-dom'
 import logo from '../static/logo.svg'
@@ -12,7 +12,7 @@ const Nav = () => {
                     <Link to="/home"><BsHouse style={styles.icon}/></Link> 
                     <Link to="/about"><BsPerson style={styles.icon}/></Link> 
                     <Link to="/contact"><BsChatSquare style={styles.icon}/></Link>
-                    <Link to="/store"><BsCart2 style={styles.icon}/></Link>
+                    <Link to="/gear"><BsCamera style={styles.icon}/></Link>
                     <Link to="/social"><IoLogoInstagram style={styles.icon}/></Link>
                 </div>
                 <p style={styles.navCopyright}>&copy; 2023 Thistle Photography.<br></br> All Rights Reserved</p>

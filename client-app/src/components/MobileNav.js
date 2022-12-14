@@ -15,7 +15,7 @@ const MobileNav = () => {
                         <Link to="/home" style={styles.link}>HOME</Link> 
                         <Link to="/about" style={styles.link}>ABOUT</Link> 
                         <Link to="/contact" style={styles.link}>CONTACT</Link>
-                        <Link to="/store" style={styles.link}>STORE</Link>
+                        <Link to="/gear" style={styles.link}>GEAR</Link>
                         <Link to="/social" style={styles.link}>SOCIAL</Link>
                     </ul>
                     <p style={styles.navCopyright}>&copy; 2023 Thistle Photography.<br></br> All Rights Reserved</p>

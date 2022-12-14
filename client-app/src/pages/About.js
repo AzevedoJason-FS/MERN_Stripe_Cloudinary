@@ -3,6 +3,7 @@ import React from 'react';
 import Nav from "../components/Nav";
 import loadingLogo from'../static/rolling.svg';
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'animate.css';
 
 const About = ( ) => {
     const [item, setItems] = React.useState('')
@@ -23,7 +24,7 @@ getData();
         <div style={styles.container}>
         <Nav />
         <div style={styles.main}>
-                {/* <p style={styles.title}>DATABASE ITEMS</p> */}
+          <p style={styles.title}>ABOUT</p>
             {item && item.length > 0 ? (
                     item.map((bio) => {
                         return (
@@ -33,11 +34,11 @@ getData();
                                 width={'100%'} 
                                 alt="Portfolio Image by Matt Thistle"
                                 style={styles.bioImage}
-                                // PlaceholderSrc={PlaceholderImage}
+                                className="animate__animated animate__fadeInLeft"
                               />
                               <div style={styles.rightBox}>
-                              <h2 style={styles.rightBoxTitle}>I'm Matt Thistle,</h2>
-                              <p style={styles.bioDetail}>{bio.bio_detail}</p>
+                              <h2 style={styles.rightBoxTitle} className="animate__animated animate__fadeInRight animate__delay-1s">I'm Matt Thistle,</h2>
+                              <p style={styles.bioDetail} className="animate__animated animate__fadeInUp animate__delay-1s">{bio.bio_detail}</p>
                               </div>
                               </div>
                             </div>
@@ -64,12 +65,15 @@ main: {
     height: '90vh'
 },
 title: {
-      textAlign: 'initial',
-      borderBottom: '1px solid #edeced',
-      fontSize: '1.6rem',
-      paddingBottom: '2rem',
-      marginBottom: '2rem',
-  },
+    textAlign: 'initial',
+    fontSize: '80px',
+    marginBottom: '2rem',
+    marginTop: '0',
+    marginLeft: '3rem',
+    color: '#333',
+    fontWeight: 'bold',
+    letterSpacing: '-0.045em'
+},
 bioBox: {
     display: 'flex',
     flexDirection: 'row',
@@ -100,7 +104,7 @@ btnReset:{
   },
   mainBox: {
     display: 'flex',
-    margin: '4rem auto'
+    margin: '4rem 4rem auto'
   },
   rightBox: {
     display: 'flex',

@@ -23,8 +23,8 @@ const Contact = ( ) => {
     <div style={styles.container}>
         <Nav />
         <div style={styles.main}>
-          <div style={styles.cards} className='contact-cards'>
-                {/* <p style={styles.title}>DATABASE ITEMS</p> */}
+        <p style={styles.title}>CONTACTS</p>
+          <div style={styles.cards}  className="animate__animated animate__fadeInRight">
             {item && item.length > 0 ? (
                     item.map((contact) => {
                         return (
@@ -48,9 +48,6 @@ const Contact = ( ) => {
 export default Contact;
 
 const styles = {
-  container: {
-
-  },
   main: {
       marginLeft: '13.25rem',
       padding: '20px',
@@ -58,15 +55,18 @@ const styles = {
   },
   title: {
       textAlign: 'initial',
-      borderBottom: '1px solid #edeced',
-      fontSize: '1.6rem',
-      paddingBottom: '2rem',
+      fontSize: '80px',
       marginBottom: '2rem',
-    },
+      marginTop: '0',
+      marginLeft: '3rem',
+      color: '#333',
+      fontWeight: 'bold',
+      letterSpacing: '-0.045em'
+},
   cards: {
       maxWidth: '1200px',
       width: 'fit-content',
-      margin: '0 auto',
+      margin: '0 4rem auto',
       display: 'grid',
       gap: '5px',
   },

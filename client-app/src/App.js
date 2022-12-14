@@ -8,10 +8,10 @@ const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
-const Store = lazy(() => import('./pages/Store'));
+const Gear = lazy(() => import('./pages/Gear'));
 const Social = lazy(() => import('./pages/Social'));
 const ImageManagement = lazy(() => import('./pages/ImageManagement'));
-const StoreManagement = lazy(() => import('./pages/StoreManagement'));
+const GearManagement = lazy(() => import('./pages/GearManagement'));
 const ContactManagement = lazy(() => import('./pages/ContactManagement'));
 const BioManagement = lazy(() => import('./pages/BioManagement'));
 const NotFound = lazy(() => import('./components/NotFound'))
@@ -82,7 +82,7 @@ const App = () => {
               <Contact />
             </Suspense>
             } />                        
-            <Route path='/store' element={
+            <Route path='/gear' element={
               <Suspense fallback={
                 <div className="loader-container">
                   <div className="loader-container-inner">
@@ -90,7 +90,7 @@ const App = () => {
                   </div>
                 </div>
               }>
-              <Store />
+              <Gear />
             </Suspense>
             } />
             <Route path='/social' element={
@@ -126,7 +126,7 @@ const App = () => {
               <ImageManagement />
             </Suspense>
             } />
-            <Route path='/admin/store-management' element={
+            <Route path='/admin/gear-management' element={
               <Suspense fallback={
                 <div className="loader-container">
                   <div className="loader-container-inner">
@@ -134,7 +134,7 @@ const App = () => {
                   </div>
                 </div>
               }>
-              <StoreManagement />
+              <GearManagement />
             </Suspense>
             } />            
             <Route path='/admin/contact-management' element={

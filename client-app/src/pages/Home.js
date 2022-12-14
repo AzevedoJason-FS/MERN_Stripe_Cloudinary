@@ -33,6 +33,7 @@ const Home = () => {
                             <div key={image._id} style={styles.imageBox}>
                               <LazyLoadImage src={image.image}
                                 width={'100%'} 
+                                height={'100%'}
                                 alt="Portfolio Image by Matt Thistle"
                                 style={styles.bioImage}
                               />
@@ -61,11 +62,13 @@ main: {
     width: 'inherit'
 },
 title: {
-    textAlign: 'initial',
-    borderBottom: '1px solid #edeced',
-    fontSize: '1.6rem',
-    paddingBottom: '2rem',
-    marginBottom: '2rem',
+  textAlign: 'initial',
+  fontSize: '80px',
+  marginBottom: '2rem',
+  marginTop: '0',
+  color: '#333',
+  fontWeight: 'bold',
+  letterSpacing: '-0.045em'
 },
 btnReset:{
     backgroundColor: 'transparent',
@@ -96,7 +99,7 @@ cards: {
     gap: '5px',
 },
 bioImage:{
-  borderRadius: 'max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px'
+  borderRadius: 'max(0px, min(10px, calc((100vw - 4px - 100%) * 9999))) / 10px'
 }
 }
 
