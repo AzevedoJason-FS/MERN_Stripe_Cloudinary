@@ -2,7 +2,7 @@ import { React } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
-import { BsImageFill, BsCartFill, BsFillTelephoneFill } from "react-icons/bs";
+import { BsImageFill, BsFillTelephoneFill } from "react-icons/bs";
 import { FaUserEdit } from "react-icons/fa";
 import AdminNavDash from "../components/AdminNavDash";
 
@@ -35,14 +35,6 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                 </Link>
-                <Link to="/admin/store-management" style={styles.link}>
-                    <div style={styles.box}>
-                        <div style={styles.detailBox}>
-                            <BsCartFill style={styles.icon}/>
-                            <p style={styles.boxTitle}>Manage Store</p>
-                        </div>
-                    </div>
-                </Link>
                 <Link to="/admin/bio-management" style={styles.link}>
                     <div style={styles.box}>
                         <div style={styles.detailBox}>
@@ -51,8 +43,8 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                 </Link>
-                <Link to="/admin/contact-management" style={styles.linkLong}>
-                    <div style={styles.boxLong}>
+                <Link to="/admin/contact-management" style={styles.link}>
+                    <div style={styles.box}>
                         <div style={styles.detailBox}>
                             <BsFillTelephoneFill style={styles.icon}/>
                             <p style={styles.boxTitle}>Manage Contacts</p>
@@ -106,20 +98,6 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    boxLong:{
-        padding: '3rem',
-        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-        borderRadius: '8px',
-        backgroundColor: 'white',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    linkLong: {
-        color: 'black',
-        textDecoration: 'none',
-        gridColumn: '1 / -1',
     },
     detailBox:{
         display: 'flex',
