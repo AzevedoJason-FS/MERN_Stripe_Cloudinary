@@ -24,7 +24,7 @@ const Contact = ( ) => {
         <Nav />
         <div style={styles.main}>
         <p style={styles.title}>CONTACTS</p>
-          <div style={styles.cards}  className="animate__animated animate__fadeInRight">
+          <div style={styles.cards} id="cards" className="animate__animated animate__fadeInRight">
             {item && item.length > 0 ? (
                     item.map((contact) => {
                         return (
@@ -64,11 +64,10 @@ const styles = {
       letterSpacing: '-0.045em'
 },
   cards: {
-      maxWidth: '1200px',
-      width: 'fit-content',
-      margin: '0 4rem auto',
-      display: 'grid',
-      gap: '5px',
+    maxWidth: '1200px',
+    margin: '0 4rem auto',
+    display: 'grid',
+    gap: '5px',
   },
   contactBox: {
       display: 'flex',

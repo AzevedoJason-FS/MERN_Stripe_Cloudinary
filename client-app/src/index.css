@@ -9,6 +9,20 @@ body,
   margin: 0;
   font-family: 'Inter', sans-serif;
 }
+.bioBox {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: auto;
+  max-width: 1200px;
+  z-index: -1;
+}
+#rightBoxTitle {
+  font-size: 72px;
+  letter-spacing: -0.045em;
+  margin: 0;
+  color: #333;
+}
 #nav-container {
   visibility: hidden;
   position: fixed;
@@ -124,18 +138,37 @@ body,
   .main{
     margin: 0rem !important;
   }
+  .cards{
+    margin-top: 4rem !important;
+  }
+  .bioBox { flex-direction: column !important }
+  #bioImage {width:60% !important}
+  .title { font-size: 42px !important; margin-top: 4rem !important; margin-left: 0 !important;}
+  #rightBoxTitle { font-size: 48px !important; margin-top: 2rem !important; }
+  .mainBox { margin: 0 !important }
 }
 @media only screen and (max-width: 800px) {
   .cards{
     width: 80% !important;
   }
+  .rightBox{ margin-left: 0 !important}
+}
+@media (min-width: 650px){
+  .bioBox{ flex-direction: column !important; }
 }
 @media (min-width: 800px) {
   .cards { grid-template-columns: repeat(2, 1fr); }  
 }
+@media (min-width: 950px) {
+  .bioBox{ flex-direction: row !important}
+}
+@media (max-width: 950px){
+  .rightBox{ margin-left: 0 !important}
+}
 @media (min-width: 1000px) {
   .cards { grid-template-columns: repeat(3, 1fr); }
 }
+
 
 
 

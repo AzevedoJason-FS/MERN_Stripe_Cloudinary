@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import Nav from "../components/Nav";
+import MobileNav from '../components/MobileNav';
 import loadingLogo from'../static/rolling.svg';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import 'animate.css';
@@ -23,29 +24,31 @@ getData();
     return (
         <div style={styles.container}>
         <Nav />
-        <div style={styles.main}>
-          <p style={styles.title}>ABOUT</p>
+        <MobileNav />
+        <div style={styles.main} className="main">
+          <p style={styles.title} className="title">ABOUT</p>
             {item && item.length > 0 ? (
                     item.map((bio) => {
                         return (
-                            <div key={bio._id} style={styles.mainBox}>
-                                <div style={styles.bioBox}>
+                            <div key={bio._id} style={styles.mainBox} className="mainBox">
+                                <div className="bioBox">
                               <LazyLoadImage src={bio.bio_image}
                                 width={'100%'} 
                                 alt="Portfolio Image by Matt Thistle"
                                 style={styles.bioImage}
+                                id="bioImage"
                                 className="animate__animated animate__fadeInLeft"
                               />
-                              <div style={styles.rightBox}>
-                              <h2 style={styles.rightBoxTitle} className="animate__animated animate__fadeInRight animate__delay-1s">I'm Matt Thistle,</h2>
+                              <div style={styles.rightBox} className="rightBox">
+                              <h2 id="rightBoxTitle" className="animate__animated animate__fadeInRight animate__delay-1s">I'm Matt Thistle,</h2>
                               <p style={styles.bioDetail} className="animate__animated animate__fadeInUp animate__delay-1s">{bio.bio_detail}</p>
                               </div>
                               </div>
                             </div>
                         )
                     })
-            ) : (
-              <img src={loadingLogo} alt='loader' style={styles.loader}/>
+                ) : (
+                  <img src={loadingLogo} alt='loader' style={styles.loader}/>
                 )
             }
         </div>
@@ -57,12 +60,9 @@ export default About;
 
 const styles = {
 main: {
-    marginLeft: '13.25rem',
-    padding: '20px',
-    width: 'inherit',
-    position: 'relative',
-    overflow: 'hidden',
-    height: '90vh'
+  marginLeft: '13.25rem',
+  padding: '20px',
+  width: 'inherit'
 },
 title: {
     textAlign: 'initial',
@@ -73,13 +73,6 @@ title: {
     color: '#333',
     fontWeight: 'bold',
     letterSpacing: '-0.045em'
-},
-bioBox: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    margin: 'auto',
-    maxWidth: '1200px'
 },
 btnReset:{
     backgroundColor: 'transparent',
@@ -110,12 +103,6 @@ btnReset:{
     display: 'flex',
     flexDirection: 'column',
     marginLeft: '2rem'
-  },
-  rightBoxTitle: {
-    fontSize: '72px',
-    letterSpacing: '-0.045em',
-    margin: '0',
-    color: '#333'
   },
   bioDetail: {
     marginTop: '2rem',

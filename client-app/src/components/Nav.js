@@ -32,7 +32,6 @@ const styles = {
         height: '100%',
         position: 'fixed',
         flexDirection: 'column',
-        justifyContent: 'center',
         alignItems: 'flex-end',
         zIndex: '100',
         background: 'white'
@@ -46,8 +45,6 @@ const styles = {
         width: '100px'
     },
     navTitle: {
-        position: 'absolute',
-        top: '0px',
         color: '#333',
         letterSpacing: '-0.045em',
         textAlign: 'right',
@@ -55,7 +52,8 @@ const styles = {
     },
     icons:{
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginTop: '4rem'
     },
     icon:{
         color: 'rgba(117, 117, 117, 1)',

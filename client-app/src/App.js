@@ -11,7 +11,6 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Gear = lazy(() => import('./pages/Gear'));
 const Social = lazy(() => import('./pages/Social'));
 const ImageManagement = lazy(() => import('./pages/ImageManagement'));
-const GearManagement = lazy(() => import('./pages/GearManagement'));
 const ContactManagement = lazy(() => import('./pages/ContactManagement'));
 const BioManagement = lazy(() => import('./pages/BioManagement'));
 const NotFound = lazy(() => import('./components/NotFound'))
@@ -125,18 +124,7 @@ const App = () => {
               }>
               <ImageManagement />
             </Suspense>
-            } />
-            <Route path='/admin/gear-management' element={
-              <Suspense fallback={
-                <div className="loader-container">
-                  <div className="loader-container-inner">
-                    <RollingLoader />
-                  </div>
-                </div>
-              }>
-              <GearManagement />
-            </Suspense>
-            } />            
+            } />          
             <Route path='/admin/contact-management' element={
               <Suspense fallback={
                 <div className="loader-container">
