@@ -4,7 +4,7 @@ const LandingPage = () => {
     return(
         <>
         <MobileNav />
-        <h2>landing</h2>
+        <h2>landing Page changed</h2>
         </>
     )
 }
