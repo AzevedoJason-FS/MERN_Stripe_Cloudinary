@@ -96,9 +96,13 @@ cards: {
     width: 'fit-content',
     margin: '0 auto',
     display: 'grid',
-    gap: '5px',
+    gap: '40px',
 },
 bioImage:{
+  borderRadius: 'max(0px, min(10px, calc((100vw - 4px - 100%) * 9999))) / 10px',
+  boxShadow: 'rgba(149, 157, 165, 0.8) 0px 8px 24px',
+},
+imageBox: {
   borderRadius: 'max(0px, min(10px, calc((100vw - 4px - 100%) * 9999))) / 10px'
 }
 }

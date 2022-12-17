@@ -55,21 +55,23 @@ body,
   justify-content: center;
   z-index: 1;
   border: 0;
-  background: transparent;
+  background: #ffffff;
+  padding-left: 20px;
+  padding-right: 20px;
   border-radius: 0;
-  height: 70px;
-  width: 30px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 8px 24px;
+  height: 60px;
+  width: 100%;
   cursor: pointer;
   pointer-events: auto;
-  margin-left: 25px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 .icon-bar {
   display: block;
-  width: 100%;
+  width: 30px;
   height: 3px;
-  background: #aaa;
+  background: black;
   transition: .3s;
 }
 .icon-bar + .icon-bar {

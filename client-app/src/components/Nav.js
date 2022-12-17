@@ -1,12 +1,10 @@
 import { BsHouse, BsPerson, BsChatSquare, BsCamera } from "react-icons/bs";
 import { IoLogoInstagram } from "react-icons/io5";
 import { Link } from 'react-router-dom'
-import logo from '../static/logo.svg'
 
 const Nav = () => {
     return(
         <nav style={styles.nav} className='nav'>
-            {/* <img src={logo} style={styles.navLogo} alt='Thistle Photography Logo'/> */}
             <h2 style={styles.navTitle}>Thistle Photography</h2>
                 <div style={styles.icons}>
                     <Link to="/home"><BsHouse style={styles.icon}/></Link> 
@@ -53,13 +51,14 @@ const styles = {
     icons:{
         display: 'flex',
         flexDirection: 'column',
-        marginTop: '4rem'
+        marginTop: '3rem'
     },
     icon:{
         color: 'rgba(117, 117, 117, 1)',
         cursor: 'pointer',
         fontSize: '1.2rem',
-        paddingBottom: '2rem'
+        paddingBottom: '1rem',
+        paddingTop: '1rem'
     },
     navCopyright:{
         position: 'absolute',
