@@ -161,7 +161,7 @@ const deleteImage = async (req, res) => {
 
 const all = (req,res) => {
    try{
-    Image.find().lean().sort({ created_at: 1 })
+    Image.find().lean().sort({ created_at: -1 })
     .then(result => {
         res.status(200).json({
             Images: result

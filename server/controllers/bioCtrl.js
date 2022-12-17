@@ -31,10 +31,10 @@ const uploadBio = async (req,res) => {
         await cloudinary.v2.uploader.upload(
             file.path,
             {
-                folder: 'images',
+                folder: 'about',
                 format: 'webp',
                 quality: '90',
-                crop: 'limit',
+                crop: 'fill',
                 height: 800, 
                 width: 600,
             }, (err, result) => {
