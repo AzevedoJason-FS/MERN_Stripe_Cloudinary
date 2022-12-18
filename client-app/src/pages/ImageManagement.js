@@ -78,7 +78,8 @@ const getData = async () => {
         }
     }
 
-    const handleDelete = async (public_id) => {
+    const handleDelete = async (public_id,e) => {
+        e.persist();
         try{
             if(isLoggedIn){
                 await axios.post('/api/auth/access', null)
@@ -138,7 +139,7 @@ const getData = async () => {
                                     <img src={image.image} alt={image._id} style={styles.img}/>
                                 </div>
                                 <div>
-                                    <button onClick={(e) => handleDelete(image.public_id, e)} style={styles.btnReset}><RiDeleteBinFill style={styles.icon} /></button>
+                                    <button onClick={(e) => handleDelete(e,image.public_id)} style={styles.btnReset}><RiDeleteBinFill style={styles.icon} /></button>
                                 </div>
                             </div>
                         )

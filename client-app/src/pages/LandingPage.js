@@ -1,10 +1,10 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { BsFacebook, BsInstagram } from "react-icons/bs";
 import { Link } from 'react-router-dom'
 
 const LandingPage = () => {
     return(
             <div style={styles.main}>
-                {/* <h2 style={styles.navTitle}>THISTLE PHOTOGRAPHY</h2> */}
                 <div style={styles.box}>
                     <div style={styles.imageBox} className="imageBox">
                         <LazyLoadImage src="https://res.cloudinary.com/dlc61c1om/image/upload/v1671319002/images/banner_ejkmp7.jpg"
@@ -15,11 +15,14 @@ const LandingPage = () => {
                         />
                     </div>
                         <div style={styles.rightbox}>
-                            <Link to="/home" style={styles.link}>HOME</Link> 
-                            <Link to="/about" style={styles.link}>ABOUT</Link> 
-                            <Link to="/contact" style={styles.link}>CONTACT</Link>
-                            <Link to="/gear" style={styles.link}>GEAR</Link>
-                            <Link to="/social" style={styles.link}>SOCIAL</Link>
+                            <Link to="/home" style={styles.link} className="link">HOME</Link> 
+                            <Link to="/about" style={styles.link} className="link">ABOUT</Link> 
+                            <Link to="/contact" style={styles.link} className="link">CONTACT</Link>
+                            <Link to="/gear" style={styles.link} className="link">GEAR</Link>
+                            <div style={styles.social}>
+                                <a target="_blank" rel="noreferrer" href="https://www.instagram.com/thistlephotography98/" style={styles.socialLinkFace}><BsFacebook /></a>
+                                <Link to="/social" style={styles.socialLinkInst}><BsInstagram /></Link>
+                            </div>
                         </div>
                 </div>       
             </div>
@@ -30,9 +33,10 @@ export default LandingPage;
 
 const styles = {
     main: {
-        background: 'white',
+        backgroundColor: 'rgb(30 30 30)',
         height: 'inherit',
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden',
     },
     box:{
         display: 'flex',
@@ -43,17 +47,13 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center'
     },
-    imageBox:{
-        width:'455px',
-        height: '655px',
-    },
     image:{
-        borderRadius: '10px',
+        objectFit: 'cover',
     },
     rightbox:{
         display: 'flex',
         flexDirection: 'column',
-        marginLeft:'2rem'
+        marginLeft:'-4rem'
     },
     navTitle: {
         color: 'white',
@@ -66,9 +66,29 @@ const styles = {
     },
     link:{
         textDecoration: 'none',
-        color: '#333',
+        color: 'white',
         fontWeight: '700',
-        fontSize: '92px',
-        padding: '10px'
+        fontSize: '84px',
+        padding: '10px',
+        position: 'relative'
+    },
+    social:{
+        display: 'flex',
+        flexDirection:'row',
+        padding: '10px',
+    },
+    socialLinkFace:{
+        fontSize:'62px',
+        color: 'white',
+        paddingRight:'20px',
+        display: 'flex',
+        alignItems: 'center'
+    },
+    socialLinkInst:{
+        fontSize:'62px',
+        color: 'white',
+        paddingLeft: '20px',
+        display: 'flex',
+        alignItems: 'center'
     }
 } 
