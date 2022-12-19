@@ -1,10 +1,11 @@
 import { BsHouse, BsPerson, BsChatSquare, BsCamera } from "react-icons/bs";
 import { IoLogoInstagram } from "react-icons/io5";
 import { Link } from 'react-router-dom'
+import 'animate.css';
 
 const Nav = () => {
     return(
-        <nav style={styles.nav} className='nav'>
+        <nav style={styles.nav} className='animate__animated animate__fadeInLeft' id="nav">
             <h2 style={styles.navTitle}>Thistle Photography</h2>
                 <div style={styles.icons}>
                     <Link to="/home"><BsHouse style={styles.icon}/></Link> 

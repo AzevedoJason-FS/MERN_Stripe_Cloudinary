@@ -26,7 +26,7 @@ getData();
         <Nav />
         <MobileNav />
         <div style={styles.main} className="main">
-          <p style={styles.title} className="title">ABOUT</p>
+          <p style={styles.title} className="animate__animated animate__fadeIn" id="title">ABOUT</p>
             {item && item.length > 0 ? (
                     item.map((bio) => {
                         return (
@@ -37,7 +37,7 @@ getData();
                                 alt="Portfolio Image by Matt Thistle"
                                 style={styles.bioImage}
                                 id="bioImage"
-                                className="animate__animated animate__fadeInLeft"
+                                className="animate__animated animate__fadeInUp"
                               />
                               <div style={styles.rightBox} className="rightBox">
                               <h2 id="rightBoxTitle" className="animate__animated animate__fadeInRight animate__delay-1s">I'm Matt Thistle,</h2>
@@ -67,7 +67,7 @@ main: {
 title: {
     textAlign: 'initial',
     fontSize: '80px',
-    marginBottom: '2rem',
+    marginBottom: '8rem',
     marginTop: '0',
     marginLeft: '3rem',
     color: '#333',
