@@ -63,7 +63,7 @@ const styles = {
         width: '100%',
         borderTopLeftRadius:'6px',
         borderBottomLeftRadius:'6px',
-        height: '70%',
+        height: '60%',
         justifyContent: 'center',
         boxShadow: '#222 0px 8px 30px',
     },
@@ -83,7 +83,8 @@ const styles = {
         fontSize: '84px',
         padding: '10px',
         position: 'relative',
-        width: 'fit-content'
+        width: 'fit-content',
+        letterSpacing: '-1.5px'
     },
     social:{
         display: 'flex',

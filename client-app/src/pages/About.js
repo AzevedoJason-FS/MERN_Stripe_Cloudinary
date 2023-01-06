@@ -40,7 +40,7 @@ getData();
                                 className="animate__animated animate__fadeInUp"
                               />
                               <div style={styles.rightBox} className="rightBox">
-                              <h2 id="rightBoxTitle" className="animate__animated animate__fadeInRight animate__delay-1s">I'm Matt Thistle,</h2>
+                              <h2 id="rightBoxTitle" className="animate__animated animate__fadeInRight animate__delay-1s">I'm Matt Thistle 👋</h2>
                               <p style={styles.bioDetail} className="animate__animated animate__fadeInUp animate__delay-1s">{bio.bio_detail}</p>
                               </div>
                               </div>

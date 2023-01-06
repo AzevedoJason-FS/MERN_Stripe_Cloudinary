@@ -23,15 +23,16 @@ const Contact = ( ) => {
     <div style={styles.container}>
         <Nav />
         <div style={styles.main}>
-        <p style={styles.title}>CONTACTS</p>
+        <p style={styles.title} className="animate__animated animate__fadeIn" id="title">CONTACTS</p>
           <div style={styles.cards} id="cards" className="animate__animated animate__fadeInRight">
             {item && item.length > 0 ? (
                     item.map((contact) => {
                         return (
                             <div key={contact._id} style={styles.contactBox}>
+                              <div style={styles.insideBox}>
                               <p>{contact.contact_name}</p>
                               <a target="_blank" rel="noreferrer" href={contact.contact_detail}>Check it out!</a>
-                              {/* <BsFillHeartFill style={styles.icon}/> */}
+                              </div>
                             </div>
                         )
                     })
@@ -54,31 +55,34 @@ const styles = {
       width: 'inherit'
   },
   title: {
-      textAlign: 'initial',
-      fontSize: '80px',
-      marginBottom: '2rem',
-      marginTop: '0',
-      marginLeft: '3rem',
-      color: '#333',
-      fontWeight: 'bold',
-      letterSpacing: '-0.045em'
+    textAlign: 'initial',
+    fontSize: '80px',
+    marginBottom: '8rem',
+    marginTop: '0',
+    marginLeft: '3rem',
+    color: '#333',
+    fontWeight: 'bold',
+    letterSpacing: '-0.045em'
 },
   cards: {
     maxWidth: '1200px',
-    margin: '0 4rem auto',
+    width: 'fit-content',
+    margin: '0 auto',
     display: 'grid',
-    gap: '5px',
+    gap: '1px',
   },
   contactBox: {
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
       margin: 'auto',
-      width: '200px',
-      height: '200px',
-      maxWidth: '400px',
-      borderRadius: 'max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px',
-      boxShadow: 'rgba(0, 0, 0, 0.18) 0px 2px 4px'
+      border:'1px solid black'
+
+  },
+  insideBox:{
+      width:'100%',
+      display:'flex',
+      flexDirection:'column',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
   },
   btnReset:{
       backgroundColor: 'transparent',

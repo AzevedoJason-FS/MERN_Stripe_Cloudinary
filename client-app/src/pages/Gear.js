@@ -6,7 +6,7 @@ const Gear = ( ) => {
         <div style={styles.container}>
             <Nav />
             <div style={styles.main}>
-                <p style={styles.title}>GEAR</p>
+                <p style={styles.title} className="animate__animated animate__fadeIn" id="title">GEAR</p>
                             <div style={styles.mainBox}>
                               {/* <LazyLoadImage src={bio.bio_image}
                                 width={'100%'} 

@@ -174,7 +174,8 @@ transform: scaleX(1);
   .bioBox{ flex-direction: column !important; }
 }
 @media (min-width: 800px) {
-  .cards { grid-template-columns: repeat(2, 1fr); }  
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  #cards { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 950px) {
   .bioBox{ flex-direction: row !important}
@@ -184,6 +185,7 @@ transform: scaleX(1);
 }
 @media (min-width: 1000px) {
   .cards { grid-template-columns: repeat(3, 1fr); }
+  #cards { grid-template-columns: repeat(3, 1fr); }
 }
 
 
