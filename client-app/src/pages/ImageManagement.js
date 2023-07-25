@@ -37,7 +37,7 @@ const getData = async () => {
 }
   getData();
   loggedin();
-}, [isLoggedIn, navigate])
+}, [isLoggedIn, navigate, items])
     
     const imageUpload = async (e) => {
         e.preventDefault();
